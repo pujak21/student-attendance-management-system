@@ -1,39 +1,48 @@
-Student Attendance Management System
+# Student Attendance Management System
 
-A simple and efficient web-based system that allows teachers to mark attendance and students to view their attendance records. The project includes secure login and role-based access using authentication.
+This is a simple and efficient web-based system that allows teachers to mark attendance and students to view their attendance records.  
+The project includes secure login functionality and role-based access using authentication.
 
-Features
+---
 
-Login System (Student & Teacher)
-Teacher
-   -Add attendance
-   -View attendance
-Student
-   -View attendance only
-MongoDB database storage
-Role-based authorization
-JWT secure tokens
+## Features
 
-Tech Stack
+- Login system for both Students and Teachers  
+- Teacher:
+  - Add Attendance
+  - View Attendance
+- Student:
+  - View Attendance only  
+- MongoDB database storage  
+- Role-based authorization  
+- JWT secured login session
 
-Frontend: HTML, CSS, JavaScript
-Backend: Node.js, Express.js
-Database: MongoDB + Mongoose
-Authentication: JWT + bcrypt
+---
 
-Database Collections
-Users
-  -username
-  -password (encrypted)
-  -role: student or teacher
+## Tech Stack
 
-Attendance
-  -studentName
-  -status (Present/Absent)
-  -date
-  -markedBy (teacher)
+| Layer | Technology |
+|-------|------------|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Node.js, Express.js |
+| Database | MongoDB + Mongoose |
+| Authentication | JWT and bcrypt |
 
-Future Improvements
-   -Monthly attendance report
-   -Email notifications
-   -Mobile responsive UI upgrade
+---
+
+## Database Structure
+
+### Users Collection
+
+- username  
+- password (encrypted)  
+- role (student or teacher)  
+
+### Attendance Collection
+
+- studentName  
+- status (Present/Absent)  
+- date  
+- markedBy (teacher username)  
+
+---
