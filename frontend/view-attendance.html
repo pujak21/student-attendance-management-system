@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Attendance</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h2>📋 View Attendance</h2>
+    <button id="logout-btn" style="
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 10px;
+      float: right;
+    ">Logout</button>
+  </header>
+
+  <main>
+    <h3 id="student-name"></h3>
+    <ul id="attendance-list"></ul>
+  </main>
+
+  <script>
+    const token = localStorage.getItem('authToken');
+    const role = localStorage.getItem('role');
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // ✅ Logout button
+    if (!token) {
+      logoutBtn.style.display = "none";
+    } else {
+      logoutBtn.addEventListener("click", () => {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "index.html";
+      });
+    }
+
+    // ✅ Allow only students to view
+    if (!token || role !== "student") {
+      alert("Unauthorized! Only students can view this page.");
+      window.location.href = "student-login.html";
+    }
+
+    // ✅ Fetch attendance
+    async function fetchAttendance() {
+      try {
+        const res = await fetch("http://localhost:5000/api/attendance/view", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+        const list = document.getElementById("attendance-list");
+        const name = document.getElementById("student-name");
+
+        if (!res.ok) {
+          alert(data.message || "Error fetching attendance.");
+          return;
+        }
+
+        list.innerHTML = "";
+        if (data.length === 0) {
+          name.textContent = "No attendance records found.";
+          return;
+        }
+
+        // ✅ Display student's name
+        name.textContent = `👩‍🎓 Student: ${data[0].studentName}`;
+
+        data.forEach(record => {
+          const li = document.createElement("li");
+          li.textContent = `${new Date(record.date).toLocaleDateString()} — ${record.status}`;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error("⚠️ Error fetching attendance:", err);
+        alert("Error fetching attendance.");
+      }
+    }
+
+    fetchAttendance();
+  </script>
+</body>
+</html>

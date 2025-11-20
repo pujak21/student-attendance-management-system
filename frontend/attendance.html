@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Portal - Attendance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+  <button id="logout-btn" style="
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px;
+    float: right;
+  ">Logout</button>
+
+  <!-- your existing attendance form content here -->
+
+    <header>
+        <h1>Student Attendance Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="attendance.html" class="active">Attendance</a></li>
+                <li></li><a href="view-attendance.html">View Attendance</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="attendance-section">
+        
+        <div class="myClass">
+            <h2>Mark Attendance</h2>
+            <form id="attendance-form">
+                <div>
+                    <label for="student-name">Student Name:</label>
+                    <input type="text" id="student-name" required>
+                </div>
+                <div>
+                    <label for="attendance-status">Attendance:</label>
+                    <select id="attendance-status">
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </div>
+                <button type="button" onclick="addAttendance()">Add Attendance</button>
+            </form>
+        </div>
+        <div id="attendance-list">
+            <h3>Attendance List</h3>
+            <ul id="list"></ul>
+        </div>
+    
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Student Attendance Portal</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+     const token = localStorage.getItem('authToken');
+     const role = localStorage.getItem('role');
+    /* if (!token) {
+      alert("Please login first.");
+      window.location.href = "index.html";
+    }*/
+
+    if (role !== "teacher") {
+      alert("Access denied! Only teachers can mark attendance.");
+      window.location.href = "index.html";
+    } 
+   
+
+  const logoutBtn = document.getElementById("logout-btn");
+
+
+  // Hide logout button if not logged in
+  if (!token) {
+    logoutBtn.style.display = "none";
+  } else {
+    logoutBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to logout?")) {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "index.html";
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
