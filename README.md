@@ -39,6 +39,19 @@ The project includes secure login functionality and role-based access using auth
 - role (student or teacher)  
 
 ### Attendance Collection
+- studentName  
+- status (Present/Absent)  
+- date  
+- markedBy (teacher username)  
+
+
+## Future Improvements
+
+- Monthly attendance report  
+- Email alert notification  
+- Fully responsive UI upgrade  
+
+---
 
 - studentName  
 - status (Present/Absent)  
